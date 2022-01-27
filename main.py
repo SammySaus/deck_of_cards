@@ -19,9 +19,18 @@ class MyDeck:
         link = requests.get(self.basehtml + self.idhash + "/draw/?count=" + count)
         newcard = link.json()
         print(newcard['cards'][0]['code'])
-    def shuffle(self):
-        link = requests.get(self.basehtml+self.idhash + "")
+
+    def shuffle(self, amount):
+        if amount == "some":
+            suffixlink = "?remaining=true"
+        else:
+            suffixlink = ""
+        link = requests.get(self.basehtml + self.idhash + "/shuffle/" + suffixlink)
+        link.json()
+        print(amount + " cards have been shuffled")
 
 
 d1 = MyDeck(deck["deck_id"])
+d1.drawcard("1")
+d1.shuffle("some")
 d1.drawcard("1")
